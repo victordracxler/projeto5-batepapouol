@@ -1,5 +1,6 @@
 let userName = "";
 let promptNome = "";
+let timerOnline = "";
 
 function perguntarNome() {
   promptNome = prompt("Escolha um nome de usuário");
@@ -28,7 +29,7 @@ function nomeOK(resposta) {
   userName = promptNome;
   puxarMensagens();
   setInterval(puxarMensagens, 3000);
-  setInterval(manterNaSala, 5000);
+  timerOnline = setInterval(manterNaSala, 5000);
 }
 
 function puxarMensagens() {
@@ -59,14 +60,14 @@ function OKOnline(resposta) {
 function erroOnline(resposta) {
   console.log("erro ao manter online");
   console.log(resposta.response.status);
-  clearInterval(setInterval(manterNaSala, 5000));
-  alert("você foi desconectado");
+  clearInterval(timerOnline);
 }
 
 let dados = [];
 
 function mensagensOK(resposta) {
   dados = resposta.data;
+  arrayDeMensagens = [];
   dados.forEach(fazerLi);
 
   renderizarMensagens(arrayDeMensagens);
