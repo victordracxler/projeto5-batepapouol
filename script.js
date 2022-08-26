@@ -1,9 +1,10 @@
 let userName = "";
+let promptNome = "";
 
 function perguntarNome() {
-  userName = prompt("Escolha um nome de usuário");
-  const objNome = {
-    name: userName,
+  promptNome = prompt("Escolha um nome de usuário");
+  let objNome = {
+    name: promptNome,
   };
 
   const requisicaoNome = axios.post(
@@ -11,13 +12,23 @@ function perguntarNome() {
     objNome
   );
 
-  requisicaoNome.then();
+  requisicaoNome.then(nomeOK);
   requisicaoNome.catch(nomeInvalido);
 }
 
+perguntarNome();
+
 function nomeInvalido(resposta) {
+  console.log(resposta);
   alert("Nome inválido ou já utilizado!");
   perguntarNome();
+}
+
+function nomeOK(resposta) {
+  userName = promptNome;
+  puxarMensagens();
+  setInterval(puxarMensagens, 3000);
+  setInterval(manterNaSala, 5000);
 }
 
 function puxarMensagens() {
@@ -25,15 +36,36 @@ function puxarMensagens() {
     "https://mock-api.driven.com.br/api/v6/uol/messages"
   );
 
-  promessa.then(respostaChegou);
-  promessa.catch(deuErro);
+  promessa.then(mensagensOK);
+  promessa.catch(mensagensErro);
 }
-puxarMensagens();
-//setInterval(puxarMensagens, 3000);
+
+function manterNaSala() {
+  let objNome = {
+    name: userName,
+  };
+  const requisicaoOnline = axios.post(
+    "https://mock-api.driven.com.br/api/v6/uol/status",
+    objNome
+  );
+
+  requisicaoOnline.catch(erroOnline);
+  requisicaoOnline.then(OKOnline);
+}
+
+function OKOnline(resposta) {
+  console.log("Usuário ainda online");
+}
+function erroOnline(resposta) {
+  console.log("erro ao manter online");
+  console.log(resposta.response.status);
+  clearInterval(setInterval(manterNaSala, 5000));
+  alert("você foi desconectado");
+}
 
 let dados = [];
 
-function respostaChegou(resposta) {
+function mensagensOK(resposta) {
   dados = resposta.data;
   dados.forEach(fazerLi);
 
@@ -41,7 +73,7 @@ function respostaChegou(resposta) {
   document.querySelector("ul").lastChild.scrollIntoView();
 }
 
-function deuErro(resposta) {
+function mensagensErro(resposta) {
   console.log(resposta.response.status);
 }
 
@@ -61,7 +93,7 @@ function fazerLi(dado) {
                 <span class="time">(${dado.time})</span>
                 <span class="from">${dado.from}</span> ${dado.text}</p>
             </li>`;
-  } else if (dado.type === "private_message") {
+  } else if (dado.type === "private_message" && dado.to === userName) {
     li = ` <li class="mensagem privada">
                 <p class="text">                    
                 <span class="time">(${dado.time})</span>
