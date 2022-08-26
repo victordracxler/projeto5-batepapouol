@@ -75,6 +75,7 @@ function mensagensOK(resposta) {
 }
 
 function mensagensErro(resposta) {
+  console.log("erro ao carregar mensagens");
   console.log(resposta.response.status);
 }
 
@@ -112,4 +113,33 @@ function renderizarMensagens(listaDeLi) {
   for (let i = 0; i < listaDeLi.length; i++) {
     elementoUl.innerHTML += listaDeLi[i];
   }
+}
+
+function enviarMensagem() {
+  const campoDeMensagem = document.querySelector(".input-message");
+  const objMensagem = {
+    from: userName,
+    to: "Todos",
+    text: campoDeMensagem.value,
+    type: "message",
+  };
+
+  const requisicaoMensagem = axios.post(
+    "https://mock-api.driven.com.br/api/v6/uol/messages",
+    objMensagem
+  );
+
+  requisicaoMensagem.catch(envioErro);
+  requisicaoMensagem.then(envioOk);
+
+  campoDeMensagem.value = "";
+}
+
+function envioOk(resposta) {
+  console.log("mensagem enviada");
+  puxarMensagens();
+}
+
+function envioErro(resposta) {
+  window.location.reload();
 }
