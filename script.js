@@ -3,6 +3,7 @@ let promptNome = "";
 let timerOnline = "";
 let timerListaUsers = "";
 let destinatario = "";
+let tipoDeMensagem = "";
 
 function perguntarNome(input) {
   promptNome = input;
@@ -21,15 +22,11 @@ function perguntarNome(input) {
   requisicaoNome.catch(nomeInvalido);
 }
 
-//perguntarNome();
-
 function nomeInvalido(resposta) {
-  console.log(resposta);
-
   document.querySelector(".login").style.display = "flex";
+  document.querySelector(".entrada").style.display = "flex";
+  document.querySelector(".loading").style.display = "none";
   alert("Nome inválido ou já utilizado!");
-
-  //perguntarNome();
 }
 
 function nomeOK(resposta) {
@@ -220,3 +217,5 @@ inputDaMensagem.addEventListener("keypress", function (event) {
     document.querySelector(".bttnSend").click();
   }
 });
+
+// Mensagem pública ou reservada

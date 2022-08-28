@@ -146,15 +146,15 @@ footer {
 }
 
 .menu li {
-  background-color: green;
   display: flex;
-  height: 36px;
+  min-height: 36px;
   align-items: center;
   font-size: 16px;
   font-weight: 400;
   word-break: break-word;
-  width: 100%;
+  width: 220px;
   cursor: pointer;
+  position: relative;
 }
 
 /* Tela de entrada */
@@ -215,4 +215,10 @@ footer {
 
 ion-icon {
   cursor: pointer;
+}
+
+.check {
+  color: #28bb25;
+  position: absolute;
+  right: 0;
 }
