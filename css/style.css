@@ -87,6 +87,7 @@ footer {
   width: 90%;
 }
 
+/*Menu lateral*/
 .escondido {
   display: none;
 }
@@ -135,8 +136,7 @@ footer {
   right: 0;
   z-index: 6;
 
-  min-width: 259px;
-  max-width: 300px;
+  width: 259px;
   height: 100%;
   background-color: #ffffff;
 
@@ -146,18 +146,18 @@ footer {
 }
 
 .menu li {
+  background-color: green;
   display: flex;
   height: 36px;
   align-items: center;
-
   font-size: 16px;
   font-weight: 400;
-
   word-break: break-word;
-
-  max-width: 100%;
+  width: 100%;
+  cursor: pointer;
 }
 
+/* Tela de entrada */
 .login {
   position: fixed;
   top: 0;
@@ -211,4 +211,8 @@ footer {
   height: 45px;
   margin: 0 auto;
   border-radius: 9px;
+}
+
+ion-icon {
+  cursor: pointer;
 }

@@ -128,22 +128,26 @@ function renderizarMensagens(listaDeLi) {
 
 function enviarMensagem() {
   const campoDeMensagem = document.querySelector(".input-message");
-  const objMensagem = {
-    from: userName,
-    to: "Todos",
-    text: campoDeMensagem.value,
-    type: "message",
-  };
 
-  const requisicaoMensagem = axios.post(
-    "https://mock-api.driven.com.br/api/v6/uol/messages",
-    objMensagem
-  );
+  if (campoDeMensagem.value === "") {
+  } else {
+    const objMensagem = {
+      from: userName,
+      to: "Todos",
+      text: campoDeMensagem.value,
+      type: "message",
+    };
 
-  requisicaoMensagem.catch(envioErro);
-  requisicaoMensagem.then(envioOk);
+    const requisicaoMensagem = axios.post(
+      "https://mock-api.driven.com.br/api/v6/uol/messages",
+      objMensagem
+    );
 
-  campoDeMensagem.value = "";
+    requisicaoMensagem.catch(envioErro);
+    requisicaoMensagem.then(envioOk);
+
+    campoDeMensagem.value = "";
+  }
 }
 
 function envioOk(resposta) {
@@ -198,3 +202,21 @@ function entrada() {
   document.querySelector(".loading").style.display = "flex";
   perguntarNome(input);
 }
+
+// Enviar com Enter
+
+const inputDoLogin = document.querySelector(".inputUsername");
+inputDoLogin.addEventListener("keypress", function (event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    document.querySelector(".bttnUsername").click();
+  }
+});
+
+const inputDaMensagem = document.querySelector(".input-message");
+inputDaMensagem.addEventListener("keypress", function (event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    document.querySelector(".bttnSend").click();
+  }
+});
