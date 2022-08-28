@@ -1,9 +1,13 @@
 let userName = "";
 let promptNome = "";
 let timerOnline = "";
+let timerListaUsers = "";
+let destinatario = "";
 
-function perguntarNome() {
-  promptNome = prompt("Escolha um nome de usuário");
+function perguntarNome(input) {
+  promptNome = input;
+
+  //promptNome = prompt("Escolha um nome de usuário");
   let objNome = {
     name: promptNome,
   };
@@ -17,19 +21,25 @@ function perguntarNome() {
   requisicaoNome.catch(nomeInvalido);
 }
 
-perguntarNome();
+//perguntarNome();
 
 function nomeInvalido(resposta) {
   console.log(resposta);
+
+  document.querySelector(".login").style.display = "flex";
   alert("Nome inválido ou já utilizado!");
-  perguntarNome();
+
+  //perguntarNome();
 }
 
 function nomeOK(resposta) {
   userName = promptNome;
+  document.querySelector(".login").style.display = "none";
   puxarMensagens();
   setInterval(puxarMensagens, 3000);
   timerOnline = setInterval(manterNaSala, 5000);
+  puxarUsuarios();
+  timerListaUsers = setInterval(puxarUsuarios, 10000);
 }
 
 function puxarMensagens() {
@@ -61,6 +71,7 @@ function erroOnline(resposta) {
   console.log("erro ao manter online");
   console.log(resposta.response.status);
   clearInterval(timerOnline);
+  clearInterval(timerListaUsers);
 }
 
 let dados = [];
@@ -136,10 +147,54 @@ function enviarMensagem() {
 }
 
 function envioOk(resposta) {
-  console.log("mensagem enviada");
   puxarMensagens();
 }
 
 function envioErro(resposta) {
   window.location.reload();
+}
+
+// Bônus
+
+function botaoMenu() {
+  const elementoMenu = document.querySelector(".sidemenu");
+  elementoMenu.classList.toggle("escondido");
+}
+
+function puxarUsuarios() {
+  const promessaUsers = axios.get(
+    "https://mock-api.driven.com.br/api/v6/uol/participants"
+  );
+
+  promessaUsers.catch((resposta) =>
+    console.log(`Erro ${resposta.response.status} ao carregar usuários!!`)
+  );
+  promessaUsers.then(renderizarUsuarios);
+}
+
+function renderizarUsuarios(resposta) {
+  const listaUsuarios = resposta.data;
+
+  const elementoLista = document.querySelector(".contacts");
+  elementoLista.innerHTML = `<li data-identifier="participant">
+                              <ion-icon name="people"></ion-icon>
+                              <p>Todos</p>
+                            </li>`;
+
+  for (let i = 0; i < listaUsuarios.length; i++) {
+    const liUsuario = `<li data-identifier="participant">
+                        <ion-icon name="person-circle"></ion-icon>
+                        <p>${listaUsuarios[i].name}</p>
+                      </li>`;
+
+    elementoLista.innerHTML += liUsuario;
+  }
+}
+
+function entrada() {
+  const input = document.querySelector(".inputUsername").value;
+
+  document.querySelector(".entrada").style.display = "none";
+  document.querySelector(".loading").style.display = "flex";
+  perguntarNome(input);
 }

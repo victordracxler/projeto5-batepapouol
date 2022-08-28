@@ -24,7 +24,7 @@
 <body>
     <header>
         <img src="img/logo 1.png" alt="Logo">
-        <ion-icon name="people"></ion-icon>
+        <ion-icon name="people" onclick="botaoMenu()"></ion-icon>
     </header>
 
     <main>
@@ -37,6 +37,46 @@
         <input type="text" class="input-message" placeholder="Escreva aqui...">
         <ion-icon name="paper-plane-outline" onclick="enviarMensagem()"></ion-icon>
     </footer>
+
+    <div class="sidemenu escondido">
+        <div class="overlay" onclick="botaoMenu()">conteudo</div>
+        <div class="menu">
+            <h1>Escolha um contato
+                para enviar mensagem:</h1>
+            <ul class="contacts">
+                <li>
+                    <ion-icon name="people"></ion-icon>
+                    <p>Todos</p>
+                </li>
+
+            </ul>
+            <h1>Escolha a visibilidade:</h1>
+            <ul class="visibility">
+                <li data-identifier="visibility">
+                    <ion-icon name="lock-open"></ion-icon>
+                    <p>Público</p>
+                </li>
+                <li data-identifier="visibility">
+                    <ion-icon name="lock-closed"></ion-icon>
+                    <p>Reservadamente</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="login">
+
+        <img src="img/logo 2.png" alt="Logotipo UOL">
+
+        <div class="entrada">
+            <input class="inputUsername" type="text" placeholder="Digite seu nome">
+            <button onclick="entrada()">Entrar</button>
+        </div>
+        <div class="loading">
+            <img class="loading-gif" src="img/cupertino_activity_indicator.gif" alt="Carregando">
+            <p>Entrando...</p>
+        </div>
+    </div>
 
 
 

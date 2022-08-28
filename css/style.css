@@ -1,88 +1,214 @@
-*{
-    box-sizing: border-box;
-    font-family: 'Roboto', sans-serif;
+* {
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
 }
 
-
-body{
-    background-color: #f3f3f3;
+body {
+  background-color: #f3f3f3;
 }
-header{
-    padding: 0 22px;
-    height: 80px;
-    width: 100%;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.05);
-    font-size: 30px;
-    background-color: #ffffff;
+header {
+  padding: 0 22px;
+  height: 80px;
+  width: 100%;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.05);
+  font-size: 30px;
+  background-color: #ffffff;
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 3;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 3;
 }
 
-main{
-    background-color: none;
-    margin: 106px 0;
+main {
+  background-color: none;
+  margin: 106px 0;
 }
 
 .mensagem {
-    padding: 9px 9px;
-    background-color: #FFFFFF;
-    min-height: 40px;
-    width: 100%;
-    margin-bottom: 4px;
-    border-radius: 2px;
-    font-size: 14px;
+  padding: 9px 9px;
+  background-color: #ffffff;
+  min-height: 40px;
+  width: 100%;
+  margin-bottom: 4px;
+  border-radius: 2px;
+  font-size: 14px;
 
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 
-    word-break: break-word;
+  word-break: break-word;
 }
 
-.to, .from{
-    font-weight: 700;
+.to,
+.from {
+  font-weight: 700;
 }
 
-.privada{
-    background-color: #FFDEDE;
+.privada {
+  background-color: #ffdede;
 }
 
-.status{
-    background-color: #DCDCDC;
+.status {
+  background-color: #dcdcdc;
 }
 
 .time {
-    margin-right: 10px;
-    color: #AAAAAA;
+  margin-right: 10px;
+  color: #aaaaaa;
 }
 
-footer{
-    padding: 0 17px;
-    height: 80px;
-    width: 100%;
-    box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.05);
-    font-size: 30px;
-    background-color: #ffffff;
+footer {
+  padding: 0 17px;
+  height: 80px;
+  width: 100%;
+  box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.05);
+  font-size: 30px;
+  background-color: #ffffff;
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-    position: fixed;
-    bottom: 0; 
-    left: 0;
-    z-index: 3;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 3;
 }
 
-.input-message{
-    background: none;
-    border: none;
-    height: 40px;
-    width: 90%;
+.input-message {
+  background: none;
+  border: none;
+  height: 40px;
+  width: 90%;
+}
+
+.escondido {
+  display: none;
+}
+
+.sidemenu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 4;
+  width: 100vw;
+  height: 100vh;
+  font-family: Roboto;
+}
+.sidemenu ion-icon {
+  font-size: 23px;
+}
+.sidemenu h1 {
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+  padding: 30px 0;
+}
+
+.sidemenu h1:nth-of-type(1) {
+  height: 84px;
+}
+
+.sidemenu h1:nth-of-type(2) {
+  height: 66px;
+}
+
+.overlay {
+  position: fixed;
+  background-color: black;
+  opacity: 0.5;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  top: 0;
+  left: 0;
+}
+
+.menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 6;
+
+  min-width: 259px;
+  max-width: 300px;
+  height: 100%;
+  background-color: #ffffff;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.menu li {
+  display: flex;
+  height: 36px;
+  align-items: center;
+
+  font-size: 16px;
+  font-weight: 400;
+
+  word-break: break-word;
+
+  max-width: 100%;
+}
+
+.login {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 6;
+  width: 100vw;
+  height: 100vh;
+  font-family: Roboto;
+  background-color: #ffffff;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: 700;
+}
+
+.entrada {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loading {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+}
+.login img:nth-child(1) {
+  margin: 72px auto 94px auto;
+}
+
+.login .loading-gif {
+  width: 200px;
+  margin-bottom: 10px;
+}
+
+.login input {
+  text-align: center;
+  width: 260px;
+  height: 54px;
+
+  border: 1px solid #d7d7d7;
+  border-radius: 4px;
+
+  margin: 0 auto 15px auto;
+}
+
+.login button {
+  border: none;
+  width: 109px;
+  height: 45px;
+  margin: 0 auto;
+  border-radius: 9px;
 }
