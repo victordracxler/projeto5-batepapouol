@@ -85,6 +85,17 @@ footer {
   border: none;
   height: 40px;
   width: 90%;
+  position: relative;
+  font-size: 18px;
+}
+footer p {
+  font-family: "Roboto", sans-serif;
+  position: absolute;
+  left: 5%;
+  bottom: 5px;
+
+  font-size: 14px;
+  color: #2e2e2e;
 }
 
 /*Menu lateral*/
@@ -157,6 +168,10 @@ footer {
   position: relative;
 }
 
+.menu li p {
+  margin-left: 6px;
+}
+
 /* Tela de entrada */
 .login {
   position: fixed;
@@ -190,8 +205,7 @@ footer {
 }
 
 .login .loading-gif {
-  width: 200px;
-  margin-bottom: 10px;
+  width: 100px;
 }
 
 .login input {
@@ -217,8 +231,7 @@ ion-icon {
   cursor: pointer;
 }
 
-.check,
-.check-vis {
+.check {
   color: #28bb25;
   position: absolute;
   right: 0;

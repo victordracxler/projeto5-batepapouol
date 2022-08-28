@@ -38,6 +38,7 @@ function nomeOK(resposta) {
   timerOnline = setInterval(manterNaSala, 5000);
   puxarUsuarios();
   timerListaUsers = setInterval(puxarUsuarios, 10000);
+  enviandoPara();
 }
 
 function puxarMensagens() {
@@ -62,9 +63,7 @@ function manterNaSala() {
   requisicaoOnline.then(OKOnline);
 }
 
-function OKOnline(resposta) {
-  console.log("Usuário ainda online");
-}
+function OKOnline(resposta) {}
 function erroOnline(resposta) {
   console.log("erro ao manter online");
   console.log(resposta.response.status);
@@ -246,6 +245,7 @@ function selecionarDestinatario(contatoClicado) {
 
   const nomeDoContatoClicado = contatoClicado.querySelector("p").innerHTML;
   destinatario = nomeDoContatoClicado;
+  enviandoPara();
 }
 
 function selecionarVisibilidade(visibilidade) {
@@ -264,5 +264,16 @@ function selecionarVisibilidade(visibilidade) {
     tipoDeMensagem = "message";
   } else if (privacidade === "Reservadamente") {
     tipoDeMensagem = "private_message";
+  }
+  enviandoPara();
+}
+
+function enviandoPara() {
+  const elemento = document.querySelector(".msg-info span");
+
+  if (tipoDeMensagem === "message") {
+    elemento.innerHTML = destinatario;
+  } else if (tipoDeMensagem === "private_message") {
+    elemento.innerHTML = `${destinatario} (Reservadamente)`;
   }
 }
