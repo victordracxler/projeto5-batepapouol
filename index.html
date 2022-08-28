@@ -52,15 +52,15 @@
             </ul>
             <h1>Escolha a visibilidade:</h1>
             <ul class="visibility">
-                <li data-identifier="visibility">
+                <li onclick="selecionarVisibilidade(this)" data-identifier="visibility">
                     <ion-icon name="lock-open"></ion-icon>
                     <p>Público</p>
                     <ion-icon class="check" name="checkmark"></ion-icon>
                 </li>
-                <li data-identifier="visibility">
+                <li onclick="selecionarVisibilidade(this)" data-identifier="visibility">
                     <ion-icon name="lock-closed"></ion-icon>
                     <p>Reservadamente</p>
-                    <ion-icon class="check" name="checkmark"></ion-icon>
+                    <ion-icon class="check escondido" name="checkmark"></ion-icon>
                 </li>
             </ul>
         </div>

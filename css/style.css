@@ -217,7 +217,8 @@ ion-icon {
   cursor: pointer;
 }
 
-.check {
+.check,
+.check-vis {
   color: #28bb25;
   position: absolute;
   right: 0;

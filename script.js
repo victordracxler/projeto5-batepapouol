@@ -2,8 +2,9 @@ let userName = "";
 let promptNome = "";
 let timerOnline = "";
 let timerListaUsers = "";
-let destinatario = "";
-let tipoDeMensagem = "";
+
+let destinatario = "Todos";
+let tipoDeMensagem = "message";
 
 function perguntarNome(input) {
   promptNome = input;
@@ -72,6 +73,7 @@ function erroOnline(resposta) {
 }
 
 let dados = [];
+let ultimaMensagem = "";
 
 function mensagensOK(resposta) {
   dados = resposta.data;
@@ -79,7 +81,14 @@ function mensagensOK(resposta) {
   dados.forEach(fazerLi);
 
   renderizarMensagens(arrayDeMensagens);
-  document.querySelector("ul").lastChild.scrollIntoView();
+
+  const ultimoFilho = document.querySelector("ul").lastChild;
+
+  if (ultimoFilho === ultimaMensagem) {
+  } else {
+    ultimaMensagem === ultimoFilho;
+    ultimoFilho.scrollIntoView();
+  }
 }
 
 function mensagensErro(resposta) {
@@ -103,7 +112,10 @@ function fazerLi(dado) {
                 <span class="time">(${dado.time})</span>
                 <span class="from">${dado.from}</span> ${dado.text}</p>
             </li>`;
-  } else if (dado.type === "private_message" && dado.to === userName) {
+  } else if (
+    dado.type === "private_message" &&
+    (dado.to === userName || dado.from === userName)
+  ) {
     li = ` <li class="mensagem privada">
                 <p class="text">                    
                 <span class="time">(${dado.time})</span>
@@ -130,9 +142,9 @@ function enviarMensagem() {
   } else {
     const objMensagem = {
       from: userName,
-      to: "Todos",
+      to: destinatario,
       text: campoDeMensagem.value,
-      type: "message",
+      type: tipoDeMensagem,
     };
 
     const requisicaoMensagem = axios.post(
@@ -177,15 +189,17 @@ function renderizarUsuarios(resposta) {
   const listaUsuarios = resposta.data;
 
   const elementoLista = document.querySelector(".contacts");
-  elementoLista.innerHTML = `<li data-identifier="participant">
+  elementoLista.innerHTML = `<li onclick="selecionarDestinatario(this)" data-identifier="participant">
                               <ion-icon name="people"></ion-icon>
                               <p>Todos</p>
+                              <ion-icon class="check" name="checkmark"></ion-icon>
                             </li>`;
 
   for (let i = 0; i < listaUsuarios.length; i++) {
-    const liUsuario = `<li data-identifier="participant">
+    const liUsuario = `<li  onclick="selecionarDestinatario(this)" data-identifier="participant">
                         <ion-icon name="person-circle"></ion-icon>
                         <p>${listaUsuarios[i].name}</p>
+                        <ion-icon class="check escondido" name="checkmark"></ion-icon>
                       </li>`;
 
     elementoLista.innerHTML += liUsuario;
@@ -219,3 +233,36 @@ inputDaMensagem.addEventListener("keypress", function (event) {
 });
 
 // Mensagem pública ou reservada
+
+function selecionarDestinatario(contatoClicado) {
+  const todosChecks = document.querySelectorAll(".contacts .check");
+
+  for (i = 0; i < todosChecks.length; i++) {
+    todosChecks[i].classList.add("escondido");
+  }
+
+  const check = contatoClicado.querySelector(".check");
+  check.classList.remove("escondido");
+
+  const nomeDoContatoClicado = contatoClicado.querySelector("p").innerHTML;
+  destinatario = nomeDoContatoClicado;
+}
+
+function selecionarVisibilidade(visibilidade) {
+  const todosChecks = document.querySelectorAll(".visibility .check");
+
+  for (i = 0; i < todosChecks.length; i++) {
+    todosChecks[i].classList.add("escondido");
+  }
+
+  const check = visibilidade.querySelector(".check");
+  check.classList.remove("escondido");
+
+  const privacidade = visibilidade.querySelector("p").innerHTML;
+
+  if (privacidade === "Público") {
+    tipoDeMensagem = "message";
+  } else if (privacidade === "Reservadamente") {
+    tipoDeMensagem = "private_message";
+  }
+}
